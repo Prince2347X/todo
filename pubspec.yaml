@@ -1,29 +1,33 @@
 name: todo
-description: ToDo App is a simple and intuitive app to help you stay organized and productive. With this, you can easily create tasks and prioritize your to-do list.
+description: ToDo App is a simple and intuitive app to help you stay organized
+  and productive. With this, you can easily create tasks and prioritize your
+  to-do list.
 
-publish_to: 'none'
+publish_to: "none"
 
 version: 1.0.0+1
 
 environment:
-  sdk: '>=2.19.5 <3.0.0'
+  sdk: ">=2.19.5 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.2
 
-  # For signIn and authentication
-  firebase_auth: ^3.0.1
-  google_sign_in: ^5.0.4
+  #For signIn and authentication
+  firebase_auth: ^4.4.1
+  google_sign_in: ^6.1.0
 
 dev_dependencies:
+  flutter_lints: ^2.0.0
   flutter_test:
     sdk: flutter
-  flutter_lints: ^2.0.0
 
 flutter:
   uses-material-design: true
+  assets:
+    - assets/images/
   fonts:
     - family: Poppins
       fonts:

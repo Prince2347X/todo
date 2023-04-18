@@ -1,15 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:todo/screens/signin.dart';
 
 void main() {
-  runApp(MaterialApp(
-    debugShowCheckedModeBanner: false,
-    theme: ThemeData(
-      colorScheme: ColorScheme.fromSwatch(primarySwatch: appTheme),
-      useMaterial3: true,
-      scaffoldBackgroundColor: const Color(0xFFEEEEEE),
-      fontFamily: 'Poppins',
+  runApp(
+    MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSwatch(
+          primarySwatch: appTheme,
+        ),
+        useMaterial3: true,
+        scaffoldBackgroundColor: const Color(
+          0xFFEEEEEE,
+        ),
+        fontFamily: 'Poppins',
+      ),
+      home: const SignInScreen(),
     ),
-  ));
+  );
 }
 
 MaterialColor appTheme = const MaterialColor(
