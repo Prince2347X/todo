@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+import 'package:provider/provider.dart';
+
+import 'package:todo/services/auth.dart';
+
 class SignInScreen extends StatelessWidget {
   const SignInScreen({super.key});
 
@@ -39,8 +43,8 @@ class SignInScreen extends StatelessWidget {
                             horizontal: 12.0,
                           ),
                           child: Text(
-                            textAlign: TextAlign.center,
                             'Get organized with the easy-to-use app for managing your to-do list.',
+                            textAlign: TextAlign.center,
                             style: TextStyle(
                               fontSize: 15,
                             ),
@@ -83,7 +87,13 @@ class SignInScreen extends StatelessWidget {
               height: 56,
               child: MaterialButton(
                 color: Theme.of(context).primaryColor,
-                onPressed: () {},
+                onPressed: () {
+                  final provider = Provider.of<GoogleSignInProvider>(
+                    context,
+                    listen: false,
+                  );
+                  provider.googleLogin();
+                },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -100,11 +110,11 @@ class SignInScreen extends StatelessWidget {
                         color: Colors.white,
                         fontWeight: FontWeight.w500,
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),
-            )
+            ),
           ],
         ),
       ),

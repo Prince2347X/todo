@@ -1,21 +1,31 @@
 import 'package:flutter/material.dart';
-import 'package:todo/screens/signin.dart';
 
-void main() {
+import 'package:firebase_core/firebase_core.dart';
+import 'package:provider/provider.dart';
+
+import 'package:todo/screens/home.dart';
+import 'package:todo/services/auth.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(
-    MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSwatch(
-          primarySwatch: appTheme,
+    ChangeNotifierProvider(
+      create: (context) => GoogleSignInProvider(),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSwatch(
+            primarySwatch: appTheme,
+          ),
+          useMaterial3: true,
+          scaffoldBackgroundColor: const Color(
+            0xFFEEEEEE,
+          ),
+          fontFamily: 'Poppins',
         ),
-        useMaterial3: true,
-        scaffoldBackgroundColor: const Color(
-          0xFFEEEEEE,
-        ),
-        fontFamily: 'Poppins',
+        home: const HomeScreen(),
       ),
-      home: const SignInScreen(),
     ),
   );
 }

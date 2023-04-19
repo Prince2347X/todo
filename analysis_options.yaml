@@ -1,8 +1,14 @@
-
 include: package:flutter_lints/flutter.yaml
 
 linter:
   rules:
     require_trailing_commas: true
     prefer_single_quotes: true
-    
+
+analyzer:
+  plugins:
+    - dart_code_metrics
+
+dart_code_metrics:
+  rules:
+    -prefer-trailing-comma
