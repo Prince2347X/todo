@@ -1,5 +1,6 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+
+import 'package:firebase_auth/firebase_auth.dart';
 
 class CustomAvatar extends StatelessWidget {
   final User user;
@@ -24,7 +25,7 @@ class CustomAvatar extends StatelessWidget {
           : CircleAvatar(
               radius: 48,
               backgroundImage: NetworkImage(
-                user.photoURL!,
+                user.photoURL!.replaceAll('=s96-c', '=s400-c'),
               ),
             ),
     );
