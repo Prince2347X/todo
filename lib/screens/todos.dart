@@ -13,7 +13,28 @@ class TodosScreen extends StatefulWidget {
   State<TodosScreen> createState() => _TodosScreenState();
 }
 
-class _TodosScreenState extends State<TodosScreen> {
+class _TodosScreenState extends State<TodosScreen> with TickerProviderStateMixin {
+  int _currentIndex = 0;
+  late TabController _tabBarController;
+  late TextEditingController _todoTextController;
+
+  @override
+  void initState() {
+    _tabBarController = TabController(
+      length: 2,
+      vsync: this,
+    );
+    _todoTextController = TextEditingController();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _tabBarController.dispose();
+    _todoTextController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final User user = FirebaseAuth.instance.currentUser!;
@@ -76,8 +97,121 @@ class _TodosScreenState extends State<TodosScreen> {
                 ),
               ],
             ),
+            const SizedBox(
+              height: 60,
+            ),
+            <Widget>[
+              const Center(
+                child: Text('Active todos'),
+              ),
+
+              const Center(
+                child: Text('Completed todos'),
+              ),
+
+              //TODO: Add list view component
+            ].elementAt(_currentIndex)
           ],
         ),
+        bottomNavigationBar: Material(
+          color: Theme.of(context).primaryColor,
+          child: TabBar(
+            tabs: const [
+              Tab(
+                child: Text(
+                  'ACTIVE',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              Tab(
+                child: Text(
+                  'COMPLETED',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ],
+            onTap: (index) {
+              setState(() {
+                _currentIndex = index;
+              });
+            },
+            splashFactory: NoSplash.splashFactory,
+            labelColor: Colors.white,
+            unselectedLabelColor: Colors.black.withOpacity(0.5),
+            indicatorWeight: 4,
+            indicatorSize: TabBarIndicatorSize.tab,
+            indicatorColor: Theme.of(context).primaryColor,
+            controller: _tabBarController,
+          ),
+        ),
+        floatingActionButton: FloatingActionButton(
+          splashColor: Theme.of(context).primaryColor.withOpacity(0.2),
+          backgroundColor: Colors.white,
+          onPressed: () {
+            showModalBottomSheet(
+              isScrollControlled: true,
+              context: context,
+              builder: (context) {
+                return SingleChildScrollView(
+                  padding: EdgeInsets.only(
+                    bottom: MediaQuery.of(context).viewInsets.bottom,
+                  ),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        flex: 9,
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                            left: 12,
+                            top: 8,
+                            bottom: 8,
+                          ),
+                          child: TextField(
+                            autofocus: true,
+                            controller: _todoTextController,
+                            decoration: const InputDecoration(hintText: 'New todo'),
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        flex: 2,
+                        child: TextButton(
+                          onPressed: () {
+                            if (_todoTextController.text.isEmpty) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  behavior: SnackBarBehavior.floating,
+                                  content: Text(
+                                    'Are you trying to procrastinate by adding an empty ToDo?',
+                                  ),
+                                ),
+                              );
+                              return;
+                            }
+                            //TODO: Add todo to firestore
+                            Navigator.pop(context);
+                            _todoTextController.clear();
+                          },
+                          child: const Text('Save'),
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              },
+            );
+          },
+          child: Icon(
+            Icons.add,
+            color: Theme.of(context).primaryColor,
+            size: 36,
+          ),
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       ),
     );
   }
