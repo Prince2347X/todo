@@ -17,6 +17,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<GoogleSignInProvider>(context, listen: true);
     return SafeArea(
       child: Scaffold(
         body: Stack(
@@ -34,34 +35,34 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: widget,
                 );
               },
-              child: Provider.of<GoogleSignInProvider>(context, listen: false).isAuthenticated
-                    ? const TodosScreen()
-                    : StreamBuilder(
+              child: provider.isAuthenticated
+                  ? const TodosScreen()
+                  : StreamBuilder(
                       stream: FirebaseAuth.instance.authStateChanges(),
-                        builder: ((context, snapshot) {
-                          if (snapshot.connectionState == ConnectionState.waiting) {
-                            return const Center(
-                              key: Key('loading'),
-                              child: CircularProgressIndicator(),
-                            );
-                          } else if (snapshot.hasError) {
-                            return const Center(
-                              key: Key('error'),
-                              child: Text('Something went wrong.'),
-                            );
-                          } else if (snapshot.hasData) {
-                            return const TodosScreen(
-                              key: Key('todos'),
-                            );
-                          } else {
-                            return const SignInScreen(
-                              key: Key('signin'),
-                            );
-                          }
-                        }),
-                      ),
-              ),
-            if (Provider.of<GoogleSignInProvider>(context, listen: false).isSigningIn)
+                      builder: ((context, snapshot) {
+                        if (snapshot.connectionState == ConnectionState.waiting) {
+                          return const Center(
+                            key: Key('loading'),
+                            child: CircularProgressIndicator(),
+                          );
+                        } else if (snapshot.hasError) {
+                          return const Center(
+                            key: Key('error'),
+                            child: Text('Something went wrong.'),
+                          );
+                        } else if (snapshot.hasData) {
+                          return const TodosScreen(
+                            key: Key('todos'),
+                          );
+                        } else {
+                          return const SignInScreen(
+                            key: Key('signin'),
+                          );
+                        }
+                      }),
+                    ),
+            ),
+            if (provider.isSigningIn)
               const Center(
                 child: CircularProgressIndicator(),
               ),
