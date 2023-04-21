@@ -5,7 +5,9 @@ import 'package:provider/provider.dart';
 
 import 'package:todo/components/avatar.dart';
 import 'package:todo/components/todo_list_view.dart';
+import 'package:todo/objects/todo.dart';
 import 'package:todo/services/auth.dart';
+import 'package:todo/services/firestore.dart';
 
 class TodosScreen extends StatefulWidget {
   const TodosScreen({super.key});
@@ -192,7 +194,17 @@ class _TodosScreenState extends State<TodosScreen> with TickerProviderStateMixin
                               );
                               return;
                             }
-                            //TODO: Add todo to firestore
+                            final todoObject = TodoObject(
+                              createdAt: DateTime.now(),
+                              id: '',
+                              isCompleted: false,
+                              modifiedAt: DateTime.now(),
+                              title: _todoTextController.text,
+                              userId: user.uid,
+                            );
+                            FirestoreServices.instance.createTodo(
+                              todoObject,
+                            );
                             Navigator.pop(context);
                             _todoTextController.clear();
                           },
