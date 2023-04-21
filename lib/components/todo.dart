@@ -13,15 +13,20 @@ class TodoTile extends StatefulWidget {
 class _TodoTileState extends State<TodoTile> {
   @override
   Widget build(BuildContext context) {
-    return CheckboxListTile(
-      title: Text(widget.todo.title),
-      tileColor: Colors.white,
-      value: widget.todo.isCompleted,
-      onChanged: (value) {
-        setState(() {
-          widget.todo.isCompleted = value!;
-        });
-      },
+    return Padding(
+      padding: const EdgeInsets.only(left: 12.0, right: 12.0, bottom: 8.0),
+      child: CheckboxListTile(
+        checkColor: Colors.white,
+        title: Text(widget.todo.title),
+        tileColor: Colors.white,
+        value: widget.todo.isCompleted,
+        onChanged: (value) {
+          setState(() {
+            widget.todo.isCompleted = value!;
+          });
+        },
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      ),
     );
   }
 }
