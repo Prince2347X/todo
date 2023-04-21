@@ -26,7 +26,7 @@ class FirestoreServices {
 
   void updateTodo(TodoObject todo) async {
     Map<String, dynamic> updatedData = todo.toJson();
-    updatedData['modifiedAt'] = DateTime.now().toIso8601String();
+    updatedData['modifiedAt'] = DateTime.now();
     await _todosCollection.doc(todo.id).update(updatedData);
   }
 

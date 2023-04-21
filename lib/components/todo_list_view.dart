@@ -35,7 +35,6 @@ class _TodoListViewState extends State<TodoListView> {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             final todos = snapshot.data!;
-            print(todos);
             return ListView(
               children: todos.map((TodoObject todo){
                 return TodoTile(todo: todo);
