@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
 
 import 'package:todo/components/avatar.dart';
+import 'package:todo/components/todo_list_view.dart';
 import 'package:todo/services/auth.dart';
 
 class TodosScreen extends StatefulWidget {
@@ -101,15 +102,14 @@ class _TodosScreenState extends State<TodosScreen> with TickerProviderStateMixin
               height: 60,
             ),
             <Widget>[
-              const Center(
-                child: Text('Active todos'),
+              const TodoListView(
+                key: Key('active'),
+                isCompleted: false,
               ),
-
-              const Center(
-                child: Text('Completed todos'),
+              const TodoListView(
+                key: Key('completed'),
+                isCompleted: true,
               ),
-
-              //TODO: Add list view component
             ].elementAt(_currentIndex)
           ],
         ),

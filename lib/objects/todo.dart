@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class TodoObject {
   DateTime createdAt;
   String id;
@@ -19,10 +21,10 @@ class TodoObject {
 
   factory TodoObject.fromJson(Map<String, dynamic> json) {
     return TodoObject(
-      createdAt: DateTime.parse(json['createdAt']),
+      createdAt: (json['createdAt'] as Timestamp).toDate(),
       id: json['id'],
       isCompleted: json['isCompleted'],
-      modifiedAt: DateTime.parse(json['modifiedAt']),
+      modifiedAt: (json['modifiedAt'] as Timestamp).toDate(),
       subtasks: json['subtasks'] != null ? List<String>.from(json['subtasks']) : null,
       title: json['title'],
       userId: json['userId'],
@@ -31,10 +33,10 @@ class TodoObject {
 
   Map<String, dynamic> toJson() {
     return {
-      'createdAt': createdAt.toIso8601String(),
+      'createdAt': createdAt,
       'id': id,
       'isCompleted': isCompleted,
-      'modifiedAt': modifiedAt.toIso8601String(),
+      'modifiedAt': modifiedAt,
       'subtasks': subtasks,
       'title': title,
       'userId': userId,
