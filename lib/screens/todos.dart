@@ -100,8 +100,19 @@ class _TodosScreenState extends State<TodosScreen> with TickerProviderStateMixin
                 ),
               ],
             ),
-            const SizedBox(
-              height: 60,
+            Padding(
+              padding: const EdgeInsets.only(
+                top: 60.0,
+                bottom: 12,
+              ),
+              child: Text(
+                _currentIndex == 0 ? 'ACTIVE TODOS' : 'COMPLETED TODOS',
+                style: TextStyle(
+                  color: Colors.black.withOpacity(0.4),
+                  fontWeight: FontWeight.bold,
+                  fontSize: 12,
+                ),
+              ),
             ),
             <Widget>[
               const TodoListView(
