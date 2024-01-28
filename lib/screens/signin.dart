@@ -25,9 +25,9 @@ class SignInScreen extends StatelessWidget {
                   ),
                   SizedBox(
                     width: width * 0.9,
-                    child: Column(
+                    child: const Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
-                      children: const [
+                      children: [
                         Padding(
                           padding: EdgeInsets.only(top: 68.0, bottom: 16),
                           child: Text(

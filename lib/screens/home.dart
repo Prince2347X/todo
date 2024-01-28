@@ -40,7 +40,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   : StreamBuilder(
                       stream: FirebaseAuth.instance.authStateChanges(),
                       builder: ((context, snapshot) {
-                        if (snapshot.connectionState == ConnectionState.waiting) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
                           return const Center(
                             key: Key('loading'),
                             child: CircularProgressIndicator(),

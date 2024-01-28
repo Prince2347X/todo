@@ -21,13 +21,13 @@ class _TodoListViewState extends State<TodoListView> {
     return FirebaseFirestore.instance
         .collection('todos')
         .orderBy(widget.isCompleted ? 'modifiedAt' : 'createdAt',
-            descending: true)
+            descending: true,)
         .where('userId', isEqualTo: user.uid)
         .where('isCompleted', isEqualTo: widget.isCompleted)
         .snapshots()
         .map((snapshot) => snapshot.docs
             .map((doc) => TodoModel.fromJson(doc.data()))
-            .toList());
+            .toList(),);
   }
 
   @override

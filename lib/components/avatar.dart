@@ -8,7 +8,8 @@ class CustomAvatar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Color profileBackgroundColor = (Colors.primaries.toList()..shuffle()).first.shade600;
+    final Color profileBackgroundColor =
+        (Colors.primaries.toList()..shuffle()).first.shade600;
     return Container(
       child: user.photoURL == null
           ? CircleAvatar(
