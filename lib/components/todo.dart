@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:todo/objects/todo.dart';
 
 class TodoTile extends StatefulWidget {
-  final TodoObject todo;
+  final TodoModel todo;
   const TodoTile({super.key, required this.todo});
 
   @override

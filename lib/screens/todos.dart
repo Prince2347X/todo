@@ -16,7 +16,8 @@ class TodosScreen extends StatefulWidget {
   State<TodosScreen> createState() => _TodosScreenState();
 }
 
-class _TodosScreenState extends State<TodosScreen> with TickerProviderStateMixin {
+class _TodosScreenState extends State<TodosScreen>
+    with TickerProviderStateMixin {
   late TextEditingController _todoTextController;
 
   @override
@@ -165,7 +166,8 @@ class _TodosScreenState extends State<TodosScreen> with TickerProviderStateMixin
                             child: TextField(
                               autofocus: true,
                               controller: _todoTextController,
-                              decoration: const InputDecoration(hintText: 'New todo'),
+                              decoration:
+                                  const InputDecoration(hintText: 'New todo'),
                             ),
                           ),
                         ),
@@ -184,7 +186,7 @@ class _TodosScreenState extends State<TodosScreen> with TickerProviderStateMixin
                                 );
                                 return;
                               }
-                              final todoObject = TodoObject(
+                              final todoObject = TodoModel(
                                 createdAt: DateTime.now(),
                                 id: '',
                                 isCompleted: false,
@@ -213,7 +215,8 @@ class _TodosScreenState extends State<TodosScreen> with TickerProviderStateMixin
               size: 36,
             ),
           ),
-          floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.centerDocked,
         ),
       ),
     );

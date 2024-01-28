@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:todo/services/firestore.dart';
 
-class TodoObject {
+class TodoModel {
   DateTime createdAt;
   String id;
   bool _isCompleted;
@@ -11,7 +11,7 @@ class TodoObject {
   String title;
   String userId;
 
-  TodoObject({
+  TodoModel({
     required this.createdAt,
     required this.id,
     required isCompleted,
@@ -28,13 +28,14 @@ class TodoObject {
     FirestoreServices.instance.updateTodo(this);
   }
 
-  factory TodoObject.fromJson(Map<String, dynamic> json) {
-    return TodoObject(
+  factory TodoModel.fromJson(Map<String, dynamic> json) {
+    return TodoModel(
       createdAt: (json['createdAt'] as Timestamp).toDate(),
       id: json['id'],
       isCompleted: json['isCompleted'],
       modifiedAt: (json['modifiedAt'] as Timestamp).toDate(),
-      subtasks: json['subtasks'] != null ? List<String>.from(json['subtasks']) : null,
+      subtasks:
+          json['subtasks'] != null ? List<String>.from(json['subtasks']) : null,
       title: json['title'],
       userId: json['userId'],
     );

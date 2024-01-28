@@ -17,20 +17,20 @@ class FirestoreServices {
     return _instance!;
   }
 
-  void createTodo(TodoObject todo) async {
+  void createTodo(TodoModel todo) async {
     final newDocRef = _todosCollection.doc();
     final newDocData = todo.toJson();
     newDocData['id'] = newDocRef.id;
     await newDocRef.set(newDocData);
   }
 
-  void updateTodo(TodoObject todo) async {
+  void updateTodo(TodoModel todo) async {
     Map<String, dynamic> updatedData = todo.toJson();
     updatedData['modifiedAt'] = DateTime.now();
     await _todosCollection.doc(todo.id).update(updatedData);
   }
 
-  void deleteTodo(TodoObject todo) async {
+  void deleteTodo(TodoModel todo) async {
     await _todosCollection.doc(todo.id).delete();
   }
 }

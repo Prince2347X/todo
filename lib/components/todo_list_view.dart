@@ -17,14 +17,17 @@ class TodoListView extends StatefulWidget {
 class _TodoListViewState extends State<TodoListView> {
   User user = FirebaseAuth.instance.currentUser!;
 
-  Stream<List<TodoObject>> _todoStream() {
+  Stream<List<TodoModel>> _todoStream() {
     return FirebaseFirestore.instance
         .collection('todos')
-        .orderBy(widget.isCompleted ? 'modifiedAt' : 'createdAt', descending: true)
+        .orderBy(widget.isCompleted ? 'modifiedAt' : 'createdAt',
+            descending: true)
         .where('userId', isEqualTo: user.uid)
         .where('isCompleted', isEqualTo: widget.isCompleted)
         .snapshots()
-        .map((snapshot) => snapshot.docs.map((doc) => TodoObject.fromJson(doc.data())).toList());
+        .map((snapshot) => snapshot.docs
+            .map((doc) => TodoModel.fromJson(doc.data()))
+            .toList());
   }
 
   @override
@@ -46,13 +49,13 @@ class _TodoListViewState extends State<TodoListView> {
           ),
         ),
         Expanded(
-          child: StreamBuilder<List<TodoObject>>(
+          child: StreamBuilder<List<TodoModel>>(
             stream: _todoStream(),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 final todos = snapshot.data!;
                 return ListView(
-                  children: todos.map((TodoObject todo) {
+                  children: todos.map((TodoModel todo) {
                     return TodoTile(todo: todo);
                   }).toList(),
                 );
