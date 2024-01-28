@@ -20,14 +20,18 @@ class _TodoListViewState extends State<TodoListView> {
   Stream<List<TodoModel>> _todoStream() {
     return FirebaseFirestore.instance
         .collection('todos')
-        .orderBy(widget.isCompleted ? 'modifiedAt' : 'createdAt',
-            descending: true,)
+        .orderBy(
+          widget.isCompleted ? 'modifiedAt' : 'createdAt',
+          descending: true,
+        )
         .where('userId', isEqualTo: user.uid)
         .where('isCompleted', isEqualTo: widget.isCompleted)
         .snapshots()
-        .map((snapshot) => snapshot.docs
-            .map((doc) => TodoModel.fromJson(doc.data()))
-            .toList(),);
+        .map(
+          (snapshot) => snapshot.docs
+              .map((doc) => TodoModel.fromJson(doc.data()))
+              .toList(),
+        );
   }
 
   @override
